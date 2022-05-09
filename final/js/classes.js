@@ -4,8 +4,7 @@ class Sprite {
     position,
     imageSrc,
     scale = 1,
-    framesMax = 1,
-    offset = { x: 0, y: 0 }
+    framesMax = 1
   }) {
     // screen
     this.canvasContext = canvasContext;
@@ -15,6 +14,13 @@ class Sprite {
     this.image = new Image();
     this.image.src = imageSrc;
 
+    if (!this.position.offset) {
+      this.position.offset = {
+        x: 0,
+        y: 0
+      }
+    }
+
     // onject scale
     this.scale = scale;
 
@@ -23,9 +29,6 @@ class Sprite {
     this.framesCurrent = 0;
     this.framesElapsed = 0;
     this.framesHold = 5;
-
-    // object offset
-    this.offset = offset;
   }
 
   draw () {
@@ -35,8 +38,8 @@ class Sprite {
       0,
       this.image.width / this.framesMax,
       this.image.height,
-      this.position.x - this.offset.x,
-      this.position.y - this.offset.y,
+      this.position.x - this.position.offset.x,
+      this.position.y - this.position.offset.y,
       (this.image.width / this.framesMax) * this.scale,
       this.image.height * this.scale
     );
@@ -66,10 +69,11 @@ class Fighter extends Sprite {
     canvasContext,
     name,
     position,
-    offset,
     velocity,
     health,
     attack,
+    width,
+    height,
     framesMax,
     scale,
     imageSrc,
@@ -81,7 +85,6 @@ class Fighter extends Sprite {
       imageSrc,
       scale,
       framesMax,
-      offset
     })
     // screen
     this.canvas = canvas;
@@ -104,8 +107,8 @@ class Fighter extends Sprite {
     this.isDead = false;
 
     //player height / width
-    this.height = 150;
-    this.width = 50;
+    this.height = height;
+    this.width = width;
 
     //player control
     this.direction = null;
@@ -164,7 +167,7 @@ class Fighter extends Sprite {
     this.attackBox.position.x = this.position.x + (frontFacing ? 0 : -this.width);
     this.attackBox.position.y = this.position.y;
 
-    
+
     if (this.isAttacking) {
       this.canvasContext.fillStyle = 'red';
       this.canvasContext.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
@@ -216,12 +219,12 @@ class Fighter extends Sprite {
   }
 
   movement () {
-    if(this.position.x <= 0) {
+    if (this.position.x <= 0) {
       // out of bounds
       this.pressedLeft = false;
     }
-    
-    if(this.position.x >= this.canvas.width - this.width) {
+
+    if (this.position.x >= this.canvas.width - this.width) {
       // out of bounds
       this.pressedRight = false;
     }

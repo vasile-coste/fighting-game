@@ -45,18 +45,20 @@ const player1 = new Fighter({
   position: {
     x: 50,
     y: 0,
+    offset: {
+      x: 215,
+      y: 157
+    }
   },
   velocity: {
     x: 0,
     y: 10,
   },
-  offset: {
-    x: 215,
-    y: 167
-  },
   frontFacing: true,
   health: 100,
   attack: 10,
+  width: 50,
+  height: 150,
   framesMax: 8,
   scale: 2.5,
   imageSrc: './img/samuraiMack/Idle.png',
@@ -98,18 +100,20 @@ const player2 = new Fighter({
   position: {
     x: canvas.width - 100,
     y: 100,
+    offset: {
+      x: 215,
+      y: 167
+    }
   },
   velocity: {
     x: 0,
     y: 10,
   },
-  offset: {
-    x: 215,
-    y: 157
-  },
   frontFacing: false,
   health: 100,
   attack: 10,
+  width: 50,
+  height: 150,
   framesMax: 4,
   scale: 2.5,
   imageSrc: './img/kenji/Idle.png',
