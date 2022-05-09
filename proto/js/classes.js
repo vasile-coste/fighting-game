@@ -118,7 +118,7 @@ class Fighter {
       // out of bounds
       this.pressedRight = false;
     }
-    
+
     this.velocity.x = 0;
     if (this.pressedLeft && this.direction === this.directionLeft) {
       this.velocity.x = -this.moveSpeed;
@@ -129,7 +129,9 @@ class Fighter {
   }
 
   jump () {
-    this.velocity.y = -this.jumpHeight;
+    if (this.velocity.y === 0) {
+      this.velocity.y = -this.jumpHeight;
+    }
   }
 
   moveLeft (pressed) {
