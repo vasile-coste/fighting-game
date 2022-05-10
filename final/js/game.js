@@ -235,8 +235,8 @@ startGameUI.addEventListener('click', () => {
   player2 = new Fighter(players[pl[1].value]);
 
   // reset player state, position, health and animation | for replay
-  // player1.reset();
-  // player2.reset();
+  player1.reset();
+  player2.reset();
 
   /** Start animating the game */
   startGame();
@@ -276,9 +276,9 @@ function startGame () {
   if (player1.getHealth() <= 0 || player2.getHealth() <= 0 || utils.getGameTime() == 0) {
     utils.determineWinner(player1, player2);
     // stop animationg
-    window.cancelAnimationFrame(animationFrame);
-    // game finished
-    return false
+    setTimeout(() => {
+      window.cancelAnimationFrame(animationFrame);
+    }, 1000);
   }
 
   // continue animating
