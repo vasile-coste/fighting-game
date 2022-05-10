@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
 }
-body{
+body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,7 +57,7 @@ body{
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
 
 .game-status {
@@ -69,5 +69,71 @@ body{
   display: none;
   align-items: center;
   justify-content: center;
+  color: #fff;
+  font-size: 2rem;
+  background-color: rgba(32, 32, 32, 0.5);
+}
+.game-menu {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: #fff;
+  background-color: rgba(32, 32, 32);
+  width: 100%;
+}
+.game-player-select,
+.game-bg-select {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0.5rem;
+}
+.game-bg-select h1,
+.game-player-select h1 {
+  font-size: 1.5rem;
+  width: 100%;
+  text-align: center;
+}
+.game-bg-select label,
+.game-player-select label {
+  position: relative;
+  margin: 5px;
+  cursor: pointer;
+  border-width: 4px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 5px;
+  width: fit-content;
+}
+.game-bg-select label:hover,
+.game-player-select label:hover {
+  border-color: rgb(170, 170, 170);
+}
+.game-bg-select label input,
+.game-player-select label input {
+  position: absolute;
+  z-index: 1;
+  
+}
+
+.game-controls {
+  width: 100%;
+  text-align: center;
+  margin-top: 2rem;
+}
+.game-controls button {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background-color: #1377c1;
   color: #fff;
 }

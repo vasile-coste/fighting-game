@@ -1,8 +1,10 @@
-/** Timer */
+/** UI controls */
 const timerUI = document.getElementById('timer');
 const gameStatusUI = document.getElementById('gameStatus');
+const gameMenuUI = document.getElementById('gameMenu');
+const startGameUI = document.getElementById('startGame');
 
-/** players health bar */
+/** Players health bar */
 const hpBar1 = document.getElementById('hpBar1');
 const hpBar2 = document.getElementById('hpBar2');
 
@@ -10,17 +12,16 @@ const hpBar2 = document.getElementById('hpBar2');
 const canvas = document.getElementById('game-area');
 const context = canvas.getContext('2d');
 
+/** Game screen size */
 canvas.width = 1024;
 canvas.height = 576;
 
-// context.fillRect(0, 0, canvas.width, canvas.height);
-
-/** Players */
-const players = [
-  {
+/** Available players */
+const players = {
+  samurai: {
     canvas: canvas,
     canvasContext: context,
-    name: 'samuraiMack',
+    name: 'samurai',
     position: {
       x: 50,
       y: 0,
@@ -33,77 +34,76 @@ const players = [
       x: 0,
       y: 10,
     },
-    rightFacing: true,
     health: 100,
     attack: 10,
-    attackRange:250,
+    attackRange: 250,
     width: 50,
     height: 150,
     scale: 2.5,
     spritesLeft: {
       idle: {
-        imageSrc: './img/samuraiMack/face_left/Idle.png',
+        imageSrc: './img/players/samurai/face_left/Idle.png',
         framesMax: 8
       },
       run: {
-        imageSrc: './img/samuraiMack/face_left/Run.png',
+        imageSrc: './img/players/samurai/face_left/Run.png',
         framesMax: 8
       },
       jump: {
-        imageSrc: './img/samuraiMack/face_left/Jump.png',
+        imageSrc: './img/players/samurai/face_left/Jump.png',
         framesMax: 2
       },
       fall: {
-        imageSrc: './img/samuraiMack/face_left/Fall.png',
+        imageSrc: './img/players/samurai/face_left/Fall.png',
         framesMax: 2
       },
       attack1: {
-        imageSrc: './img/samuraiMack/face_left/Attack1.png',
+        imageSrc: './img/players/samurai/face_left/Attack1.png',
         framesMax: 6
       },
       takeHit: {
-        imageSrc: './img/samuraiMack/face_left/Take hit.png',
+        imageSrc: './img/players/samurai/face_left/Take hit.png',
         framesMax: 4
       },
       death: {
-        imageSrc: './img/samuraiMack/face_left/Death.png',
+        imageSrc: './img/players/samurai/face_left/Death.png',
       }
     },
     spritesRight: {
       idle: {
-        imageSrc: './img/samuraiMack/face_right/Idle.png',
+        imageSrc: './img/players/samurai/face_right/Idle.png',
         framesMax: 8
       },
       run: {
-        imageSrc: './img/samuraiMack/face_right/Run.png',
+        imageSrc: './img/players/samurai/face_right/Run.png',
         framesMax: 8
       },
       jump: {
-        imageSrc: './img/samuraiMack/face_right/Jump.png',
+        imageSrc: './img/players/samurai/face_right/Jump.png',
         framesMax: 2
       },
       fall: {
-        imageSrc: './img/samuraiMack/face_right/Fall.png',
+        imageSrc: './img/players/samurai/face_right/Fall.png',
         framesMax: 2
       },
       attack1: {
-        imageSrc: './img/samuraiMack/face_right/Attack1.png',
+        imageSrc: './img/players/samurai/face_right/Attack1.png',
         framesMax: 6
       },
       takeHit: {
-        imageSrc: './img/samuraiMack/face_right/Take hit.png',
+        imageSrc: './img/players/samurai/face_right/Take hit.png',
         framesMax: 4
       },
       death: {
-        imageSrc: './img/samuraiMack/face_right/Death.png',
+        imageSrc: './img/players/samurai/face_right/Death.png',
         framesMax: 6
       }
     }
   },
-  {
+  ninja:{
     canvas: canvas,
     canvasContext: context,
-    name: 'kenji',
+    name: 'ninja',
     position: {
       x: canvas.width - 100,
       y: 100,
@@ -124,101 +124,130 @@ const players = [
     scale: 2.5,
     spritesLeft: {
       idle: {
-        imageSrc: './img/kenji/face_left/Idle.png',
+        imageSrc: './img/players/ninja/face_left/Idle.png',
         framesMax: 4
       },
       run: {
-        imageSrc: './img/kenji/face_left/Run.png',
+        imageSrc: './img/players/ninja/face_left/Run.png',
         framesMax: 8
       },
       jump: {
-        imageSrc: './img/kenji/face_left/Jump.png',
+        imageSrc: './img/players/ninja/face_left/Jump.png',
         framesMax: 2
       },
       fall: {
-        imageSrc: './img/kenji/face_left/Fall.png',
+        imageSrc: './img/players/ninja/face_left/Fall.png',
         framesMax: 2
       },
       attack1: {
-        imageSrc: './img/kenji/face_left/Attack1.png',
+        imageSrc: './img/players/ninja/face_left/Attack1.png',
         framesMax: 4
       },
       takeHit: {
-        imageSrc: './img/kenji/face_left/Take hit.png',
+        imageSrc: './img/players/ninja/face_left/Take hit.png',
         framesMax: 3
       },
       death: {
-        imageSrc: './img/kenji/face_left/Death.png',
+        imageSrc: './img/players/ninja/face_left/Death.png',
         framesMax: 7
       }
     },
     spritesRight: {
       idle: {
-        imageSrc: './img/kenji/face_right/Idle.png',
+        imageSrc: './img/players/ninja/face_right/Idle.png',
         framesMax: 4
       },
       run: {
-        imageSrc: './img/kenji/face_right/Run.png',
+        imageSrc: './img/players/ninja/face_right/Run.png',
         framesMax: 8
       },
       jump: {
-        imageSrc: './img/kenji/face_right/Jump.png',
+        imageSrc: './img/players/ninja/face_right/Jump.png',
         framesMax: 2
       },
       fall: {
-        imageSrc: './img/kenji/face_right/Fall.png',
+        imageSrc: './img/players/ninja/face_right/Fall.png',
         framesMax: 2
       },
       attack1: {
-        imageSrc: './img/kenji/face_right/Attack1.png',
+        imageSrc: './img/players/ninja/face_right/Attack1.png',
         framesMax: 4
       },
       takeHit: {
-        imageSrc: './img/kenji/face_right/Take hit.png',
+        imageSrc: './img/players/ninja/face_right/Take hit.png',
         framesMax: 3
       },
       death: {
-        imageSrc: './img/kenji/face_right/Death.png',
+        imageSrc: './img/players/ninja/face_right/Death.png',
         framesMax: 7
       }
     }
   }
-];
+};
 
-// background elements
-const background = new Sprite({
-  canvasContext: context,
-  position: {
-    x: 0,
-    y: 0
-  },
-  imageSrc: './img/background/bg1.png'
+
+
+const utils = new Utils(timerUI, hpBar1, hpBar2, gameStatusUI, gameMenuUI);
+utils.showStart();
+
+/** Game elements init */
+let background = null;
+let shop = null;
+let player1 = null;
+let player2 = null;
+
+/** Start the game */
+startGameUI.addEventListener('click', () => {
+  const bg = document.querySelector('input[name="bg"]:checked').value;
+  const pl = document.querySelectorAll('.players:checked');
+  if (pl.length !== 2) {
+    alert('Please select 2 players to continue!');
+    return false;
+  }
+
+  /** Init game timer */
+  utils.initGameTimer();
+
+  /** Background init */
+  background = new Sprite({
+    canvasContext: context,
+    position: {
+      x: 0,
+      y: 0
+    },
+    imageSrc: `./img/background/bg${bg}.png`
+  });
+
+  /** Init bg elements */
+  shop = new Sprite({
+    canvasContext: context,
+    position: {
+      x: 600,
+      y: 128
+    },
+    imageSrc: './img/sprites/shop.png',
+    scale: 2.75,
+    framesMax: 6
+  });
+
+  /** Players init */
+  player1 = new Fighter(players[pl[0].value]);
+  player2 = new Fighter(players[pl[1].value]);
+
+  // reset player state, position, health and animation | for replay
+  // player1.reset();
+  // player2.reset();
+
+  /** Start animating the game */
+  startGame();
 });
-
-const shop = new Sprite({
-  canvasContext: context,
-  position: {
-    x: 600,
-    y: 128
-  },
-  imageSrc: './img/sprites/shop.png',
-  scale: 2.75,
-  framesMax: 6
-});
-
-/** Players */
-
-const player1 = new Fighter(players[0]);
-const player2 = new Fighter(players[1]);
-
-const utils = new Utils(timerUI, gameStatusUI, hpBar1, hpBar2);
-utils.gameTimer(player1, player2);
 
 
 /** Game start */
+let animationFrame = null;
 function startGame () {
 
-  // reset background
+  // reset background and its elements
   background.update();
   shop.update();
 
@@ -228,6 +257,7 @@ function startGame () {
     player2.takeDamage(player1.getDamage());
     console.log('player 1 hit player 2');
   }
+
   // player 2 attacks player 1
   if (utils.objectHit(player2, player1)) {
     player2.attack(false);
@@ -235,26 +265,33 @@ function startGame () {
     console.log('player 2 hit player 1');
   }
 
-  // display health status
-  utils.hpBar(player1, player2)
-
-  // check if game over based on health
-  if (player1.getHealth() <= 0 || player2.getHealth() <= 0) {
-    utils.determineWinner(player1, player2);
-  }
-  
   // update players on screen
   player1.update(utils.objectFacing(player1, player2));
   player2.update(utils.objectFacing(player2, player1));
 
-  // request next frame
-  window.requestAnimationFrame(startGame);
-}
+  // display health status
+  utils.hpBar(player1, player2)
 
-startGame();
+  // check if game over based on health and tiimer
+  if (player1.getHealth() <= 0 || player2.getHealth() <= 0 || utils.getGameTime() == 0) {
+    utils.determineWinner(player1, player2);
+    // stop animationg
+    window.cancelAnimationFrame(animationFrame);
+    // game finished
+    return false
+  }
+
+  // continue animating
+  animationFrame = window.requestAnimationFrame(startGame);
+}
 
 /** Move player keys listeners*/
 window.addEventListener('keydown', (e) => {
+  // take no action if players are not init
+  if (!player1 && !player2) {
+    return false;
+  }
+
   if (!player1.isDead && !player2.isDead && utils.getGameTime() > 0) {
     switch (e.key) {
       // player 1
@@ -289,10 +326,13 @@ window.addEventListener('keydown', (e) => {
   }
 });
 window.addEventListener('keyup', (e) => {
+  // take no action if players are not init
+  if (!player1 && !player2) {
+    return false;
+  }
+
   if (e.key == ' ' && (player1.isDead || player2.isDead || utils.getGameTime() == 0)) {
-    player1.reset();
-    player2.reset();
-    utils.resetTimer();
+    utils.showStart();
   }
   if (!player1.isDead && !player2.isDead && utils.getGameTime() > 0) {
     switch (e.key) {

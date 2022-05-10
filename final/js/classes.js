@@ -70,7 +70,6 @@ class Fighter extends Sprite {
     name,
     position,
     velocity,
-    rightFacing,
     health,
     attack,
     attackRange,
@@ -80,8 +79,8 @@ class Fighter extends Sprite {
     spritesRight,
     spritesLeft
   }) {
-    let imageSrc = rightFacing ? spritesRight.idle.imageSrc : spritesLeft.idle.imageSrc;
-    let framesMax = rightFacing ? spritesRight.idle.framesMax : spritesLeft.idle.framesMax;
+    let imageSrc = spritesRight.idle.imageSrc;
+    let framesMax = spritesRight.idle.framesMax;
     super({
       canvasContext,
       position,
@@ -98,7 +97,6 @@ class Fighter extends Sprite {
     // player position
     this.initPosition = { ...position };
     this.velocity = velocity;
-    this.rightFacing = rightFacing;
 
     // player health
     this.initHealth = health;

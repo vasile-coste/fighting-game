@@ -1,9 +1,10 @@
 class Utils {
-  constructor(timer, gameStatus, hpBar1, hpBar2) {
+  constructor(timer, hpBar1, hpBar2, gameStatus, gameMenu) {
     this.hpBar1 = hpBar1;
     this.hpBar2 = hpBar2;
     this.timer = timer;
     this.gameStatus = gameStatus;
+    this.gameMenu = gameMenu;
     this.timerId = null;
     this.gameTime = 60;
     this.originalTime = 60;
@@ -13,14 +14,24 @@ class Utils {
     return this.gameTime;
   }
 
-  gameTimer (object1, object2) {
+  startGameTimer () {
     if (this.gameTime > 0) {
-      this.timerId = setTimeout(() => { this.gameTimer(object1, object2); }, 1000);
+      this.timerId = setTimeout(() => { this.startGameTimer(); }, 1000);
       this.gameTime--;
       this.timer.innerText = this.gameTime;
-    } else {
-      this.determineWinner(object1, object2);
     }
+  }
+
+  showStart() {
+    this.gameStatus.style.display = 'none';
+    this.gameMenu.style.display = 'flex';
+  }
+
+  initGameTimer () {
+    this.gameStatus.style.display = 'none';
+    this.gameMenu.style.display = 'none';
+    this.gameTime = this.originalTime;
+    this.startGameTimer();
   }
 
   determineWinner (object1, object2) {
@@ -28,34 +39,21 @@ class Utils {
     this.gameStatus.style.display = 'flex';
 
     if (object1.getHealth() == object2.getHealth()) {
-      this.gameStatus.innerText = 'Tie, press space to play again';
+      this.gameStatus.innerText = 'Tie, press space to return to Main Menu';
     }
 
-    if (object1.getHealth() > object2.getHealth()) {
-      this.gameStatus.innerText = 'Player 1 wins, press space to play again';
+    if (object1.getHealth() > object2.getHealth() || object2.getHealth() <= 0) {
+      this.gameStatus.innerText = 'Player 1 wins, press space to return to Main Menu';
     }
 
-    if (object1.getHealth() < object2.getHealth()) {
-      this.gameStatus.innerText = 'Player 2 wins, press space to play again';
-    }
-    if (object1.getHealth() <= 0) {
-      this.gameStatus.innerText = 'Player 2 wins, press space to play again';
-    }
-
-    if (object2.getHealth() <= 0) {
-      this.gameStatus.innerText = 'Player 1 wins, press space to play again';
+    if (object1.getHealth() < object2.getHealth() || object1.getHealth() <= 0) {
+      this.gameStatus.innerText = 'Player 2 wins, press space to return to Main Menu';
     }
   }
 
   hpBar (object1, object2) {
     this.hpBar1.style.width = object1.getBarHealth() + '%';
     this.hpBar2.style.width = object2.getBarHealth() + '%';
-  }
-
-  resetTimer () {
-    this.gameStatus.style.display = 'none';
-    this.gameTime = this.originalTime;
-    this.gameTimer();
   }
 
   objectHit (object1, object2) {

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <head>
   <title>Fighting Game</title>
   <link rel="stylesheet" href="css/style.css">
@@ -6,6 +7,7 @@
   <script src="js/classes.js" defer></script>
   <script src="js/game.js" defer></script>
 </head>
+
 <body>
   <div class="game">
     <div class="status">
@@ -19,7 +21,40 @@
     </div>
     <div class="game-status" id="gameStatus">
     </div>
+    <div class="game-menu" id="gameMenu">
+      <div class="game-player-select">
+        <h1>Select 2 players</h1>
+        <label for="player1">
+          <input type="checkbox" class="players" value="samurai" id="player1">
+          <img src="./img/players/samurai/player.png" width="100" alt="">
+        </label>
+        <label for="player0">
+          <input type="checkbox" class="players" value="ninja" id="player0">
+          <img src="./img/players/ninja/player.png" width="100" alt="">
+        </label>
+
+      </div>
+      <div class="game-bg-select">
+        <h1>Select a stage</h1>
+        <label for="bg1" class="active">
+          <input type="radio" name="bg" value="1" id="bg1" checked>
+          <img src="./img/background/bg1.png" width="200" alt="">
+        </label>
+        <label for="bg2">
+          <input type="radio" name="bg" value="2" id="bg2">
+          <img src="./img/background/bg2.png" width="200" alt="">
+        </label>
+        <label for="bg3">
+          <input type="radio" name="bg" value="3" id="bg3">
+          <img src="./img/background/bg3.png" width="200" alt="">
+        </label>
+      </div>
+      <div class="game-controls">
+        <button id="startGame">Start</button>
+      </div>
+    </div>
     <canvas id="game-area"></canvas>
   </div>
 </body>
+
 </html>
