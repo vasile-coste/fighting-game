@@ -187,7 +187,7 @@ class Fighter extends Sprite {
     this.attackBox.position.y = this.position.y;
 
     // testing show hitbox
-    //player
+    // player
     // this.canvasContext.fillStyle = 'blue';
     // this.canvasContext.fillRect(this.position.x, this.position.y, this.width, this.height);
     // if (this.isAttacking) {

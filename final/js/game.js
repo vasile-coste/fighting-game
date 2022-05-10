@@ -23,7 +23,7 @@ const players = {
     canvasContext: context,
     name: 'samurai',
     position: {
-      x: 50,
+      x: 0,
       y: 0,
       offset: {
         x: 215,
@@ -62,7 +62,7 @@ const players = {
         framesMax: 6
       },
       takeHit: {
-        imageSrc: './img/players/samurai/face_left/Take hit.png',
+        imageSrc: './img/players/samurai/face_left/Hit.png',
         framesMax: 4
       },
       death: {
@@ -91,7 +91,7 @@ const players = {
         framesMax: 6
       },
       takeHit: {
-        imageSrc: './img/players/samurai/face_right/Take hit.png',
+        imageSrc: './img/players/samurai/face_right/Hit.png',
         framesMax: 4
       },
       death: {
@@ -100,13 +100,13 @@ const players = {
       }
     }
   },
-  ninja:{
+  ninja: {
     canvas: canvas,
     canvasContext: context,
     name: 'ninja',
     position: {
-      x: canvas.width - 100,
-      y: 100,
+      x: 0,
+      y: 0,
       offset: {
         x: 215,
         y: 169
@@ -144,7 +144,7 @@ const players = {
         framesMax: 4
       },
       takeHit: {
-        imageSrc: './img/players/ninja/face_left/Take hit.png',
+        imageSrc: './img/players/ninja/face_left/Hit.png',
         framesMax: 3
       },
       death: {
@@ -174,11 +174,94 @@ const players = {
         framesMax: 4
       },
       takeHit: {
-        imageSrc: './img/players/ninja/face_right/Take hit.png',
+        imageSrc: './img/players/ninja/face_right/Hit.png',
         framesMax: 3
       },
       death: {
         imageSrc: './img/players/ninja/face_right/Death.png',
+        framesMax: 7
+      }
+    }
+  },
+  wizard: {
+    canvas: canvas,
+    canvasContext: context,
+    name: 'wizard',
+    position: {
+      x: -100,
+      y: 0,
+      offset: {
+        x: 180,
+        y: 90
+      }
+    },
+    velocity: {
+      x: 0,
+      y: 10,
+    },
+    health: 100,
+    attack: 10,
+    attackRange: 180,
+    width: 50,
+    height: 150,
+    scale: 1.7,
+    spritesLeft: {
+      idle: {
+        imageSrc: './img/players/wizard/face_left/Idle.png',
+        framesMax: 6
+      },
+      run: {
+        imageSrc: './img/players/wizard/face_left/Run.png',
+        framesMax: 8
+      },
+      jump: {
+        imageSrc: './img/players/wizard/face_left/Jump.png',
+        framesMax: 2
+      },
+      fall: {
+        imageSrc: './img/players/wizard/face_left/Fall.png',
+        framesMax: 2
+      },
+      attack1: {
+        imageSrc: './img/players/wizard/face_left/Attack1.png',
+        framesMax: 8
+      },
+      takeHit: {
+        imageSrc: './img/players/wizard/face_left/Hit.png',
+        framesMax: 4
+      },
+      death: {
+        imageSrc: './img/players/wizard/face_left/Death.png',
+        framesMax: 7
+      }
+    },
+    spritesRight: {
+      idle: {
+        imageSrc: './img/players/wizard/face_right/Idle.png',
+        framesMax: 6
+      },
+      run: {
+        imageSrc: './img/players/wizard/face_right/Run.png',
+        framesMax: 8
+      },
+      jump: {
+        imageSrc: './img/players/wizard/face_right/Jump.png',
+        framesMax: 2
+      },
+      fall: {
+        imageSrc: './img/players/wizard/face_right/Fall.png',
+        framesMax: 2
+      },
+      attack1: {
+        imageSrc: './img/players/wizard/face_right/Attack1.png',
+        framesMax: 8
+      },
+      takeHit: {
+        imageSrc: './img/players/wizard/face_right/Hit.png',
+        framesMax: 4
+      },
+      death: {
+        imageSrc: './img/players/wizard/face_right/Death.png',
         framesMax: 7
       }
     }
@@ -229,10 +312,15 @@ startGameUI.addEventListener('click', () => {
     scale: 2.75,
     framesMax: 6
   });
+  console.log();
 
   /** Players init */
-  player1 = new Fighter(players[pl[0].value]);
-  player2 = new Fighter(players[pl[1].value]);
+  const tmpPl1 = players[pl[0].value];
+  tmpPl1.position.x += 50;
+  const tmpPl2 = players[pl[1].value];
+  tmpPl2.position.x += canvas.width - 100;
+  player1 = new Fighter(tmpPl1);
+  player2 = new Fighter(tmpPl2);
 
   // reset player state, position, health and animation | for replay
   player1.reset();
